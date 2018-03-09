@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="dashboard4SmartLab:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/dashboard4SmartLab_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="dashboard4SmartLab/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="dashboard4SmartLab" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
