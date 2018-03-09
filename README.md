@@ -1,0 +1,3 @@
+# SmartLabDashboard
+This is the dashboard project for our smart lab.
+To be modified...
