@@ -21,6 +21,7 @@ $(document).ready(function(){
     var labFullClosed = 1000;
     var int = self.setInterval(ask(), 1000);
 
+    
     function ask() {
         $.ajax({
             url:"http://localhost:8080/labFullClosed",
