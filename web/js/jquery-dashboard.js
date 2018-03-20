@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    //alert(1);
+
     $("#shape196").click(function(){
         $("h1.page-header").hide();
         $("[data-toggle='popover']").popover();
@@ -18,13 +18,27 @@ $(document).ready(function(){
     //     alert(2);
     // })
 
+
     var labFullClosed = 1000;
-    var int = self.setInterval(ask(), 1000);
 
 
-    function ask() {
+    /*
+     For test
+     */
+
+
+    // var count = 0;
+    // var int = self.setInterval(action(),1000);
+    // function action(){
+    //     count++;
+    //     alert("count = "+count);
+    // }
+    var int = self.setInterval(askIfLabFullClosed(), 1000);
+
+
+    function askIfLabFullClosed() {
         $.ajax({
-            url:"http://localhost:8080/labFullClosed",
+            url:"http://192.168.1.166:8080/smartLab/iffullclosed",
             type:"get",
             async:false,
             dataType:"jsonp",
@@ -36,11 +50,17 @@ $(document).ready(function(){
                 console.log( xhr );
             },
             success:function (json) {
-                //alert(json[0]);
+
                 labFullClosed = json[1];
-                console.log("ask once" + labFullClosed);
+                console.log("ask once: " + labFullClosed);
+                $(".labfullclosed").text(labFullClosed);
+
+
             }
         });
+
+
+
     }
 
 
