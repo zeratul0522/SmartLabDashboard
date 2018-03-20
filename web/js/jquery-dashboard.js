@@ -33,7 +33,7 @@ $(document).ready(function(){
     //     count++;
     //     alert("count = "+count);
     // }
-    var int = self.setInterval(askIfLabFullClosed(), 1000);
+    var int = self.setInterval(askIfLabFullClosed, 1000);
 
 
     function askIfLabFullClosed() {
