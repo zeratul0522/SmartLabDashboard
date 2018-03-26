@@ -107,22 +107,22 @@
 
                     </tr>
                     <tr>
-                        <td>1,002</td>
-                        <td class="testarea">amet</td>
+                        <td>Is Meeting room empty?</td>
+                        <td class="testarea"></td>
 
                     </tr>
                     <tr>
-                        <td>1,003</td>
+                        <td>Is any paper in printer</td>
                         <td>Integer</td>
 
                     </tr>
                     <tr>
-                        <td>1,003</td>
-                        <td>libero</td>
+                        <td>Temperature</td>
+                        <td class="temperature"></td>
 
                     </tr>
                     <tr>
-                        <td>1,004</td>
+                        <td>Is </td>
                         <td>dapibus</td>
 
                     </tr>
