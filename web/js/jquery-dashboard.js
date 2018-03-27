@@ -7,17 +7,22 @@ $(document).ready(function(){
     });
 
     $("#shape198").click(function () {
-        convertGateToOpen();
+        convertGateToClosed();
     })
 
     var labFullClosed = 1000;
+    var temperature = "0.0";
+    var frontDoor = 1000;
+    var frontWindow = 1000;
+    var meetingRoom = 1000;
+    var serverRoom = 1000;
 
-    var int = self.setInterval(askIfLabFullClosed, 1000);
-
+    var int_ifLabFullClose = self.setInterval(askIfLabFullClosed, 1000);
+    var int_temperature = self.setInterval(askTemperature, 1000);
 
     function askIfLabFullClosed() {
         $.ajax({
-            url:"http://192.168.1.166:8080/smartLab/iffullclosed",
+            url:"http://localhost:8080/smartLab/iffullclosed",
             type:"get",
             async:false,
             dataType:"jsonp",
@@ -29,13 +34,90 @@ $(document).ready(function(){
                 console.log( xhr );
             },
             success:function (json) {
-
                 labFullClosed = json[1];
+                frontDoor = json[3];
+                frontWindow = json[5];
+                meetingRoom = json[7];
+                serverRoom = json[9];
                 console.log("ask once: " + labFullClosed);
                 $(".labfullclosed").text(labFullClosed);
+                $(".frontDoor").text(frontDoor);
+                $(".frontWindow").text(frontWindow);
+                $(".meetingRoom").text(meetingRoom);
+                $(".serverRoom").text(serverRoom);
+                changeFrontDoor(frontDoor);
+                changeFrontWindow(frontWindow);
+                changeMeetingRoom(meetingRoom);
+                changeServerRoom(serverRoom);
             }
         });
     }
+
+    function changeFrontDoor(frontDoor) {
+        if (frontDoor == 1)
+        {
+            convertGateToClosed();
+        }
+        else
+        {
+            convertGateToOpen();
+        }
+    }
+
+    function changeFrontWindow(frontWindow) {
+        if (frontWindow == 1)
+        {
+            convertWindowToClosed(10);
+        }
+        else
+        {
+            convertWindowToOpen(10);
+        }
+    }
+
+    function changeMeetingRoom(meetingRoom) {
+        if (meetingRoom == 1)
+        {
+            convertSideDoorToClosed(17);
+        }
+        else
+        {
+            convertSideDoorToOpen(17);
+        }
+    }
+
+    function changeServerRoom(serverRoom) {
+        if (serverRoom == 1)
+        {
+            convertSideDoorToClosed(18);
+        }
+        else
+        {
+            convertSideDoorToOpen(18);
+        }
+    }
+
+    function askTemperature() {
+        $.ajax({
+            url:"http://localhost:8080/smartLab/temperature",
+            type:"get",
+            async:false,
+            dataType:"jsonp",
+            jsonp:"callback",
+            jsonpCallback:"temperature",
+            error: function (xhr, status, errorThrown) {
+                console.log( "Error: " + errorThrown );
+                console.log( "Status: " + status );
+                console.log( xhr );
+            },
+            success:function (json) {
+                temperature = json[1];
+                console.log("ask once: " + temperature);
+                $(".temperature").text(temperature);
+            }
+        });
+    }
+
 });
 
 /**
