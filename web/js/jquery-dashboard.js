@@ -40,17 +40,24 @@ $(document).ready(function(){
                 meetingRoom = json[7];
                 serverRoom = json[9];
                 console.log("ask once: " + labFullClosed);
-                $(".labfullclosed").text(labFullClosed);
-                $(".frontDoor").text(frontDoor);
-                $(".frontWindow").text(frontWindow);
-                $(".meetingRoom").text(meetingRoom);
-                $(".serverRoom").text(serverRoom);
+                $(".labfullclosed").text(changeNumberToState(labFullClosed));
+                $(".frontDoor").text(changeNumberToState(frontDoor));
+                $(".frontWindow").text(changeNumberToState(frontWindow));
+                $(".meetingRoom").text(changeNumberToState(meetingRoom));
+                $(".serverRoom").text(changeNumberToState(serverRoom));
                 changeFrontDoor(frontDoor);
                 changeFrontWindow(frontWindow);
                 changeMeetingRoom(meetingRoom);
                 changeServerRoom(serverRoom);
             }
         });
+    }
+
+    function changeNumberToState(number) {
+        if (number == 1)
+            return "关";
+        else if (number == 0)
+            return "开";
     }
 
     function changeFrontDoor(frontDoor) {
