@@ -19,6 +19,9 @@ $(document).ready(function(){
 
     var int_ifLabFullClose = self.setInterval(askIfLabFullClosed, 1000);
     var int_temperature = self.setInterval(askTemperature, 1000);
+    var int_somebodyAtRoom = self.setInterval(askSomebodyAtRoom, 1000);
+
+
 
     function askIfLabFullClosed() {
         $.ajax({
@@ -126,6 +129,31 @@ $(document).ready(function(){
     }
 
 });
+
+var somebodyAtRoom = 1000;
+
+function askSomebodyAtRoom() {
+    $.ajax({
+        url: "http://localhost:8080/smartLab/ifEmptyRoom",
+        type: "get",
+        async: false,
+        dataType: "jsonp",
+        jsonp: "callback",
+        jsonpCallback: "somebodyAtRoom",
+        error: function (xhr, status, errorThrown) {
+            console.log("Error: " + errorThrown);
+            console.log("Status: " + status);
+            console.log(xhr);
+        },
+        success: function (json) {
+            // count++;
+            somebodyAtRoom = json[1];
+            console.log("ask once: meeting room" + somebodyAtRoom);
+            $(".somebodyAtRoom").text(somebodyAtRoom);
+        }
+    });
+}
+
 
 /**
  * @desc 在平面图上动态地把正门从开启状态改变为关闭状态,或从关闭到开启
