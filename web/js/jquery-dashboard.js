@@ -20,10 +20,12 @@ $(document).ready(function(){
 //一些之后要用的变量
 var labFullClosed = 1000;
 var temperature = "0.0";
+var humidity = "0.0";
 var frontDoor = 1000;
 var frontWindow = 1000;
 var meetingRoom = 1000;
 var serverRoom = 1000;
+var nightDoorWindow = 1000;
 
 //询问温度的代码（格式一致）
 function askTemperature() {
@@ -41,11 +43,15 @@ function askTemperature() {
         },
         success:function (json) {
             temperature = json[1];
+            humidity = json[3];
             console.log("ask once: " + temperature);
             $(".temperature").text(temperature);
+            $(".humidity").text(humidity);
         }
     });
 }
+
+var ifalert = false;
 
 //询问门窗的代码（格式一致）
 function askIfLabFullClosed() {
@@ -67,6 +73,7 @@ function askIfLabFullClosed() {
             frontWindow = json[5];
             meetingRoom = json[7];
             serverRoom = json[9];
+            nightDoorWindow = json[11];
             console.log("ask once: " + labFullClosed);
             $(".labfullclosed").text(changeNumberToState(labFullClosed));
             $(".frontDoor").text(changeNumberToState(frontDoor));
@@ -77,6 +84,15 @@ function askIfLabFullClosed() {
             changeFrontWindow(frontWindow);
             changeMeetingRoom(meetingRoom);
             changeServerRoom(serverRoom);
+            if (frontDoor == 0 && ifalert == false)
+            {
+                //alert("实验室有门窗没关好！详情请看平面图。");
+                alert_paly("http://www.necroz.com/gaianus/perks/social5/GaianusRingtone%20-%20Thrill%20under%20the%20Jungle%20Dome.mp3");
+                ifalert = true;
+            }
+            else if (frontDoor == 1)
+                alert_paly("");
+                ifalert = false;
         }
     });
 }
@@ -233,4 +249,10 @@ function convertMeetingRoom() {
         document.getElementById("shape4798").style.display = "inline";
     }
 
+}
+
+
+function alert_paly(src) {
+    var auto = $("#alert");
+    auto.attr("src",src);
 }
